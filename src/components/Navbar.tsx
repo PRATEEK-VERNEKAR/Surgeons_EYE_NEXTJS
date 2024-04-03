@@ -5,17 +5,53 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 
 const Navbar = () => {
   const { data: session } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const pathname = usePathname();
+  const router=useRouter();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const generateDateTimeId=()=>{
+    const now = new Date();
+    const year = now.getFullYear().toString();  
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const day = now.getDate().toString().padStart(2, '0');
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+
+    const combinedId = `${year}${month}${day}${hours}${minutes}${seconds}`;
+    return combinedId
+  }
+
+  const openChatbotCataract=()=>{
+    try{
+      if(session?.user?.email){
+        router.push(`/cataract/${session?.user?.email}/${generateDateTimeId()}`)
+      }
+    }
+    catch(e){
+      console.log(e);
+    }
+  }
+
+  const openChatbotCholec=()=>{
+    try{
+      if(session?.user?.email){
+        router.push(`/cholec/${session?.user?.email}/${generateDateTimeId()}`)
+      }
+    }
+    catch(e){
+      console.log(e);
+    }
+  }
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900 sticky top-0 w-[100%]">
@@ -87,16 +123,30 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link
-                href="/developers"
+              <button
+                // href="/developers"
+                onClick={()=>{openChatbotCataract()}}
                 className={`block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:p-0 ${
-                  pathname === '/developers'
+                  pathname === '/cataract/'
                     ? 'text-white  md:text-blue-700'
                     : 'text-gray-900 hover:bg-gray-100 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
                 }`}
               >
-                Developers
-              </Link>
+                Cataract
+              </button>
+            </li>
+            <li>
+              <button
+                // href="/developers"
+                onClick={()=>{openChatbotCholec()}}
+                className={`block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:p-0 ${
+                  pathname === '/cholec/'
+                    ? 'text-white  md:text-blue-700'
+                    : 'text-gray-900 hover:bg-gray-100 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
+                }`}
+              >
+                Cholec
+              </button>
             </li>
             {session?.user ? (
             <li>

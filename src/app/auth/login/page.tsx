@@ -4,6 +4,9 @@ import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function SignIn() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -12,16 +15,30 @@ export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const notify = (msg:string) => toast.error(msg, {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+    });;
+
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = await signIn('credentials', {
-      redirect: true,
+      redirect: false,
       email,
       password,
       callbackUrl,
     });
     if (result?.error) {
+      notify("Error Logging In Try Again");
       console.error('Error logging in:', result.error);
+      setEmail("");
+      setPassword("");
     } else {
       router.push(callbackUrl);
     }
@@ -29,7 +46,7 @@ export default function SignIn() {
 
   return (
     <div className="flex items-center justify-center ">
-      <div className="bg-white rounded-lg shadow-xl p-8 max-w-md mx-auto bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+      <div className="bg-white rounded-lg shadow-xl p-8 max-w-md mx-auto bg-gradient-to-r from-indigo-200 via-purple-500 to-pink-500">
         <h1 className="text-3xl font-bold mb-6 text-center">Sign In</h1>
         <form onSubmit={handleSignIn} className="space-y-4">
           <div>
@@ -88,18 +105,30 @@ export default function SignIn() {
             </button>
           </div>
         </div>
-        <div className="mt-6 text-center">
+        <div className="mt-6 text-center text-xl">
           <p className="text-gray-600">
             Don't have an account?{' '}
             <a
               href="/auth/register"
-              className="text-indigo-500 hover:text-indigo-600 transition-colors duration-300"
+              className=" text-green-300 hover:text-indigo-600 transition-colors duration-300"
             >
               Register
             </a>
           </p>
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

@@ -159,6 +159,7 @@ const Chatbot: React.FC = ({params}:any) => {
       {/* <Sidebar userEmail={session?.user?.email ?? ""} onChatSelect={handleChatSelect} /> */}
       <Sidebar userEmail={session?.user?.email ?? ""} />
       <div className="flex flex-col h-[800px] w-[50%] m-auto rounded-xl bg-gray-200">
+      <h1 className='text-center text-4xl p-2 w-full bg-red-200'>CATARACT</h1>
         <div className="flex-grow overflow-y-scroll px-4 py-2" ref={chatContainerRef}>
           {chatHistory.map((message, index) => {
             console.log(message.message);
@@ -166,15 +167,16 @@ const Chatbot: React.FC = ({params}:any) => {
               <div
               key={index}
               className={`message rounded-lg p-2 mb-2 ${
-                message.type === 'user' ? 'bg-gray-300 text-left' : 'bg-gray-100 text-right'
+                message.type === 'user' ? 'bg-gray-300 text-right' : 'bg-gray-100 text-left'
               }`}
               >
                 {message.videoSource && (
                   <>
                     <video src={message.videoSource} controls />
-                    {message.message && (
+                    {/* {message.message && (
                       <>
-                        {String(message.message).split('*').map((line, lineIndex) => {
+                        {String(message.message).split('\n').map((line, lineIndex) => {
+                          console.log("|HEIOJEJFKLJF|n\n\n\n")
                           return (
                             <>
                               <p key={lineIndex}>{line}</p>
@@ -183,10 +185,22 @@ const Chatbot: React.FC = ({params}:any) => {
                           );
                         })}
                       </>
-                    )}
+                    )} */}
                   </>
                 )}
-                {message.message && <p>{message.message}</p>}
+                {message.message && (
+                  <>
+                  {String(message.message).split('\n').map((line, lineIndex) => {
+                    return (
+                      <>
+                        <li key={lineIndex}>{line}</li>
+                        <br />
+                      </>
+                    );
+                  })}
+                </>
+                )                
+                }
               </div>
             );
           })}

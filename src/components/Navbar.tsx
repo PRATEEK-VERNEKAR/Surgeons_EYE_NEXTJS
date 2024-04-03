@@ -31,27 +31,17 @@ const Navbar = () => {
     return combinedId
   }
 
-  const openChatbotCataract=()=>{
+  const openChatbots=(surgery:string)=>{
     try{
-      if(session?.user?.email){
-        router.push(`/cataract/${session?.user?.email}/${generateDateTimeId()}`)
-      }
+      // if(session?.user?.email){
+        router.push(`/${surgery}/${session?.user?.email}/${generateDateTimeId()}`)
+      // }
     }
     catch(e){
       console.log(e);
     }
   }
 
-  const openChatbotCholec=()=>{
-    try{
-      if(session?.user?.email){
-        router.push(`/cholec/${session?.user?.email}/${generateDateTimeId()}`)
-      }
-    }
-    catch(e){
-      console.log(e);
-    }
-  }
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900 sticky top-0 w-[100%]">
@@ -124,8 +114,7 @@ const Navbar = () => {
             </li>
             <li>
               <button
-                // href="/developers"
-                onClick={()=>{openChatbotCataract()}}
+                onClick={()=>{openChatbots('cataract')}}
                 className={`block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:p-0 ${
                   pathname === '/cataract/'
                     ? 'text-white  md:text-blue-700'
@@ -137,8 +126,7 @@ const Navbar = () => {
             </li>
             <li>
               <button
-                // href="/developers"
-                onClick={()=>{openChatbotCholec()}}
+                onClick={()=>{openChatbots('cholec')}}
                 className={`block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:p-0 ${
                   pathname === '/cholec/'
                     ? 'text-white  md:text-blue-700'

@@ -1,5 +1,7 @@
 // components/Sidebar.tsx
 
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { useSelectedLayoutSegments, useRouter } from 'next/navigation';
 

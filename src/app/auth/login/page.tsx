@@ -80,7 +80,7 @@ export default function SignIn() {
           <p className="text-gray-600">Or sign in with:</p>
           <div className="flex justify-center space-x-4 mt-2">
             <button
-              onClick={() => signIn('github')}
+              onClick={() => signIn('github',{ callbackUrl: '/' })}
               className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors duration-300 shadow-md"
             >
               GitHub

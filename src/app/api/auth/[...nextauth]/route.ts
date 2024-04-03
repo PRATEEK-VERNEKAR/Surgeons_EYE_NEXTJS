@@ -15,7 +15,7 @@ interface CustomUser {
   password: string;
 }
 
-const options: NextAuthOptions = {
+export const options: NextAuthOptions = {
   session: {
     strategy: 'jwt',
     maxAge: 24*60 * 60, // 10 days
@@ -56,30 +56,66 @@ const options: NextAuthOptions = {
           placeholder: 'your-awesome-password',
         },
       },
+      // async authorize(credentials) {
+      //   await connectToDatabase();
+      //   console.log("Authorise function\n\n");
+      //   const { email, password } = credentials as Record<'email' | 'password', string>;
+      //   const user = await UserModel.findOne({ email: email });
+
+      //   if (!user) {
+      //     throw new Error('No user found with the email');
+      //   }
+
+      //   const isValid = await verifyPassword(password, user.password);
+
+      //   if (!isValid) {
+      //     throw new Error('Invalid password');
+      //   }
+
+      //   const userData: CustomUser = {
+      //     id: user._id.toString(),
+      //     name: user.name,
+      //     email: user.email,
+      //     password: user.password,
+      //   };
+
+      //   return userData;
+      // },
       async authorize(credentials) {
         await connectToDatabase();
-        const { email, password } = credentials as Record<'email' | 'password', string>;
+      
+        const { email } = credentials as Record<'email' | 'password', string>; // Only email for OAuth
         const user = await UserModel.findOne({ email: email });
-
-        if (!user) {
-          throw new Error('No user found with the email');
+      
+        if (user) {
+          // Existing user (custom credentials or OAuth)
+          return {
+            id: user._id.toString(),
+            name: user.name, // Use existing name (update if needed)
+            email: user.email,
+          };
+        } else {
+          // New user (likely from OAuth)
+          const session = await getSession({ req: context.req });
+      
+          if (session && session.user) {
+            const newUser = new User({
+              name: session.user.name, // Access name from session (OAuth)
+              email: session.user.email, // Access email from session (OAuth)
+            });
+            await newUser.save();
+            return {
+              id: newUser._id.toString(),
+              name: newUser.name,
+              email: newUser.email,
+            };
+          } else {
+            // Handle case where session or user data is missing (unexpected)
+            throw new Error('Could not retrieve user information');
+          }
         }
-
-        const isValid = await verifyPassword(password, user.password);
-
-        if (!isValid) {
-          throw new Error('Invalid password');
-        }
-
-        const userData: CustomUser = {
-          id: user._id.toString(),
-          name: user.name,
-          email: user.email,
-          password: user.password,
-        };
-
-        return userData;
-      },
+      }
+      
     }),
   ],
 };

@@ -26,9 +26,7 @@ const Cards:React.FC<CardProps> = ({url}) => {
 
   const openChatbot=()=>{
     try{
-      if(session?.user?.email){
-        router.push(`/${url}/${session?.user?.email}/${generateDateTimeId()}`)
-      }
+      router.push(`/${url}/${session?.user?.email}/${generateDateTimeId()}`)
     }
     catch(e){
       console.log(e);

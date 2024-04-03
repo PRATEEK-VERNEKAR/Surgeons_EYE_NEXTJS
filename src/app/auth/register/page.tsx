@@ -14,7 +14,6 @@ export default function RegisterPage() {
 
     try {
 
-      console.log(name,email,password)
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {

@@ -14,7 +14,6 @@ export default function SignOut() {
     //   console.error('Error during sign-out:');
     // }
 
-    console.log(result)
   };
 
   return <button onClick={handleSignOut}>Sign Out</button>;

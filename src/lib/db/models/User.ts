@@ -24,6 +24,7 @@ export interface IUser extends Document {
   chats: {
     dateTimeId: String;
     transcript:String;
+    category:string
     conversations: {
       type: string;
       message: string;
@@ -39,6 +40,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
     {
       dateTimeId: { type: String, required: true },
       transcript:{type:String,requied:true},
+      category:{type:String,required:true},
       conversations: [
         {
           type: { type: String, required: true },

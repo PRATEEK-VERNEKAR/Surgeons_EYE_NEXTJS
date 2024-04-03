@@ -6,6 +6,7 @@ import { useSelectedLayoutSegments,useRouter } from 'next/navigation';
 interface Chat {
   dateTimeId: string;
   transcript: string;
+  category:string
   conversations: {
     type: string;
     message: string;
@@ -22,11 +23,10 @@ const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
   const router=useRouter();
 
 
-
   useEffect(() => {
     const fetchChats = async () => {
       try {
-        const response = await fetch(`/api/getAllIds/${userEmail}/cataract`);
+        const response = await fetch(`/api/getAllIds/${userEmail}/cholec`);
 
         const data = await response.json();
         console.log(data)
@@ -57,7 +57,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
             // key={dateTimeId}
             className="bg-white p-2 rounded-md mb-2 cursor-pointer hover:bg-gray-300"
             // onClick={() => handleChatSelect(chat.dateTimeId, chat)}
-            onClick={()=>{router.push(`/cataract/${userEmail}/${dateTimeId}`)}}
+            onClick={()=>{router.push(`/cholec/${userEmail}/${dateTimeId}`)}}
           >
             <span className="font-semibold">{dateTimeId}</span>
           </li>

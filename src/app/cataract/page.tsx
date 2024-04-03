@@ -431,7 +431,6 @@ const Chatbot: React.FC = () => {
 
     const combinedId = `${year}${month}${day}${hours}${minutes}${seconds}`;
     setDateTimeId(combinedId);
-    console.log(combinedId);
     setChatHistory([{ type: 'system', message: 'Hey this is your surgeon! How can I help you today?' }]);
   }, []);
 

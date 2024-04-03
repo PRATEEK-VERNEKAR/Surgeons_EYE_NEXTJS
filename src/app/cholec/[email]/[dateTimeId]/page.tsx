@@ -2,12 +2,12 @@
 import { useSession } from 'next-auth/react';
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import '@/app/cataract/index.css';
-import { appendChatMessage } from '@/app/cataract/functions/appendChatMessage';
-// import { simulateResponse } from '@/app/cataract/functions/simulateResponse';
-import { processVideo } from '@/app/cataract/functions/processVideo';
-import { predictVideoText } from '@/app/cataract/functions/predictVideoText';
-import Sidebar from '@/app/cataract/components/Sidebar';
+import '@/app/cholec/index.css';
+import { appendChatMessage } from '@/app/cholec/functions/appendChatMessage';
+import { simulateResponse } from '@/app/cholec/functions/simulateResponse';
+import { processVideo } from '@/app/cholec/functions/processVideo';
+import { predictVideoText } from '@/app/cholec/functions/predictVideoText';
+import Sidebar from '@/app/cholec/components/Sidebar';
 import { useSelectedLayoutSegments } from 'next/navigation';
 
 
@@ -56,15 +56,15 @@ const Chatbot: React.FC = ({params}:any) => {
     if (videoFile) {
       const videoData = await processVideo(videoFile);
       const resTranscript = await predictVideoText(videoFile);
-      await appendChatMessage(session?.user?.email ?? "", "user", "Video Input", dateTimeId, "",'cataract');
+      await appendChatMessage(session?.user?.email ?? "", "user", "Video Input", dateTimeId, "","cholec");
       setTranscript(resTranscript);
       newMessages.push({ type: 'user', message: 'Sent a video', videoSource: videoData }, { type: 'system', message: resTranscript });
-      await appendChatMessage(session?.user?.email ?? "", "system", resTranscript, dateTimeId, transcript,'cataract');
+      await appendChatMessage(session?.user?.email ?? "", "system", resTranscript, dateTimeId, transcript,"cholec");
     } else if (userInput) {
-      await appendChatMessage(session?.user?.email ?? "", "user", userInput, dateTimeId, "",'cataract');
+      await appendChatMessage(session?.user?.email ?? "", "user", userInput, dateTimeId, "",'cholec');
       const response = await simulateResponse(userInput, transcript);
       newMessages.push({ type: 'user', message: userInput }, { type: 'system', message: response });
-      await appendChatMessage(session?.user?.email ?? "", "system", response, dateTimeId, transcript,'cataract');
+      await appendChatMessage(session?.user?.email ?? "", "system", response, dateTimeId, transcript,'cholec');
     }
 
     setChatHistory((prevChatHistory) => [...prevChatHistory, ...newMessages]);
@@ -79,37 +79,6 @@ const Chatbot: React.FC = ({params}:any) => {
     }
   };
 
-  async function simulateResponse(text: string, transcript: string): Promise<string> {
-  
-    text = transcript + '\n\n' + text;
-    const requestBody = {
-      prompt: text,
-      // chat_history: [],
-    };
-
-    console.log(requestBody)
-  
-    try {
-      const response = await axios.post('http://localhost:5000/chat', requestBody, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      console.log(response)
-  
-      if (response.status !== 200) {
-        throw new Error(`API call failed with status code ${response.status}`);
-      }
-  
-      const data = response.data;
-      return data.response;
-    } catch (error) {
-      console.error('Error simulating response:', error);
-      return 'Error simulating response';
-    }
-  }
-
   useEffect(() => {
     const fetchChatHistory = async () => {
       try {
@@ -122,7 +91,6 @@ const Chatbot: React.FC = ({params}:any) => {
               message: conversation.message,
             })
           );
-          (conversationsHistory)
           setChatHistory(conversationsHistory);
           setTranscript(data.transcript);
         } else {
@@ -161,7 +129,7 @@ const Chatbot: React.FC = ({params}:any) => {
       <div className="flex flex-col h-[800px] w-[50%] m-auto rounded-xl bg-gray-200">
         <div className="flex-grow overflow-y-scroll px-4 py-2" ref={chatContainerRef}>
           {chatHistory.map((message, index) => {
-            console.log(message.message);
+            // console.log(message.message);
             return (
               <div
               key={index}

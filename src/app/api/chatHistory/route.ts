@@ -8,12 +8,10 @@ export async function GET(request: NextRequest) {
         
         const { searchParams } = new URL(request.url);
 
-        console.log(searchParams);
         const email = searchParams.get('email');
         const dateTimeId=searchParams.get('dateTimeId');
+        // const category
         
-        console.log(email);
-        console.log(dateTimeId);
       
         if (!email || !dateTimeId) {
             return NextResponse.json({ error: 'Email is required' }, { status: 400 });
@@ -21,7 +19,6 @@ export async function GET(request: NextRequest) {
         
         const user:IUser|null = await UserModel.findOne({ email },{chats:{$elemMatch:{dateTimeId}}});
         // const user = await UserModel.findOne({ email });
-        console.log(user)
         
         if (!user) {
             return NextResponse.json({ chats: [] }, { status: 404 });
@@ -29,7 +26,7 @@ export async function GET(request: NextRequest) {
 
         const chat = user.chats.find((c) => c.dateTimeId === dateTimeId);
         
-        return NextResponse.json(chat);
+        return NextResponse.json({"currentChats":chat});
     }
     catch (error) {
         console.error('Error:', error);

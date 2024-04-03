@@ -20,7 +20,6 @@ export default function SignIn() {
       password,
       callbackUrl,
     });
-    console.log(result);
     if (result?.error) {
       console.error('Error logging in:', result.error);
     } else {

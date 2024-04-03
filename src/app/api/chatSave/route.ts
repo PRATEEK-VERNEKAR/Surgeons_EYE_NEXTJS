@@ -7,7 +7,7 @@ export async function POST(request: Request) {
   try {
     await connectToDatabase(); 
 
-    const { email, msgType, message , dateTimeId,transcript} = await request.json();
+    const { email, msgType, message , dateTimeId,transcript,category} = await request.json();
 
     const user = await UserModel.findOne({ email });
 
@@ -26,6 +26,7 @@ export async function POST(request: Request) {
       user.chats.push({
         dateTimeId:dateTimeId,
         transcript:transcript,
+        category:category,
         conversations: [{ type: msgType, message }],
       });
     }

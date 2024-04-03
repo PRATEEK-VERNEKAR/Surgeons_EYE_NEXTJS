@@ -122,7 +122,6 @@ interface CustomUser {
           },
         },
         async authorize(credentials) {
-            console.log("\n\n\n\n\n\n\n\naskdfads\n\n\n\n\n\n\n")
             await connectToDatabase();
 
             const { username, password } = credentials as Record<'username' | 'password', string>;

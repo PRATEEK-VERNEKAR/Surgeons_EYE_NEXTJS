@@ -24,9 +24,19 @@ const Cards:React.FC<CardProps> = ({url}) => {
     return combinedId
   }
 
-  
+  const openChatbot=()=>{
+    try{
+      if(session?.user?.email){
+        router.push(`/${url}/${session?.user?.email}/${generateDateTimeId()}`)
+      }
+    }
+    catch(e){
+      console.log(e);
+    }
+  }
+
   return (
-    <div onClick={() => router.push(`/cataract/${session?.user?.email}/${generateDateTimeId()}`)} className="bg-slate-300 max-w-sm bg-white border border-gray-200 rounded-lg shadow m-4 cursor-pointer h-[400px] w-[600px]">
+    <div onClick={() => {openChatbot()}} className="bg-slate-300 max-w-sm bg-white border border-gray-200 rounded-lg shadow m-4 cursor-pointer h-[400px] w-[600px]">
         <Image className="rounded-t-lg object-cover w-[600px] h-[300px]" src={"/"+url+".jpg"}  height={200} width={200} alt="" />
         <p className='p-2 text-2xl text-center font-bold uppercase'>{url} Surgery</p>
         <div className='text-center'>

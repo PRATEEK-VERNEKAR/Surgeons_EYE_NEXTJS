@@ -2,6 +2,7 @@
 
 import { useSession } from 'next-auth/react';
 import React, { useState, useEffect,useRef } from 'react';
+import Image from 'next/image';
 import axios from 'axios';
 import '@/app/cataract/index.css';
 import { appendChatMessage } from '@/app/cataract/functions/appendChatMessage';
@@ -90,6 +91,20 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
     }
   };
 
+  function handleSpeakClick(textToSpeak: string) {
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      const utterance = new SpeechSynthesisUtterance(textToSpeak);
+      // Customize voice, rate, pitch, etc. if desired
+      // utterance.voice = window.speechSynthesis.getVoices()[4]; // Example voice selection
+      // utterance.rate = 0.85;
+      speechSynthesis.speak(utterance);
+    } else {
+      console.error('Text-to-speech not supported in this browser.');
+    }
+  }
+  
+
+
   useEffect(() => {
     const fetchChatHistory = async () => {
       try {
@@ -168,16 +183,19 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
                   </>
                 )}
                 {message.message && (
-                  <>
-                  {String(message.message).split('\n').map((line, lineIndex) => {
-                    return (
-                      <>
-                        <li key={lineIndex}>{line}</li>
-                        <br />
-                      </>
-                    );
-                  })}
-                </>
+                  <div className=''>
+                    {String(message.message).split('\n').map((line, lineIndex) => {
+                      return (
+                        <>
+                          <li key={lineIndex}>{line}</li>
+                          <br />
+                        </>
+                      );
+                    })}
+                    <button onClick={()=>{handleSpeakClick(String(message.message))}}>
+                      <Image src='/public/file-audio-solid.svg' width={20} height={20} alt='Speak Icon'/>
+                    </button>
+                  </div>
                 )                
                 }
               </div>

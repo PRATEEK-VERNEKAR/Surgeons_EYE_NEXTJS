@@ -8,7 +8,12 @@
   box-sizing: border-box;
 }
 
-
+main {
+  background-image: url('/background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
 /* :root {
   --foreground-rgb: 0, 0, 0;

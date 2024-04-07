@@ -23,7 +23,7 @@ export default function RootLayout({
         <AuthProvider>
           <div className="min-h-screen flex flex-col"> {/* Ensures full viewport height */}
             <Navbar />
-            <main className="px-4 py-8 flex-grow bg-green-100"> {/* Flexible content area with padding */}
+            <main className="px-4 py-8 flex-grow "> {/* Flexible content area with padding */}
               {children}
             </main>
             <Footer />

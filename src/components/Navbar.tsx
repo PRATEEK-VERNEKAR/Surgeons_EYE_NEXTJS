@@ -44,7 +44,7 @@ const Navbar = () => {
 
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900 sticky top-0 w-[100%]">
+    <nav className="bg-white border-gray-200 dark:bg-gray-900 sticky top-0 w-[100%] uppercase">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           href="/welcome"
@@ -114,26 +114,26 @@ const Navbar = () => {
             </li>
             <li>
               <button
-                onClick={()=>{openChatbots('cataract')}}
-                className={`block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:p-0 ${
-                  pathname === '/cataract/'
+                onClick={()=>{openChatbots('ophthalmology')}}
+                className={`block py-2 px-3  rounded md:hover:bg-transparent md:border-0 md:p-0 uppercase ${
+                  pathname === '/ophthalmology/'
                     ? 'text-white  md:text-blue-700'
                     : 'text-gray-900 hover:bg-gray-100 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
                 }`}
               >
-                Cataract
+                ophthalmology
               </button>
             </li>
             <li>
               <button
-                onClick={()=>{openChatbots('cholec')}}
-                className={`block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:p-0 ${
-                  pathname === '/cholec/'
+                onClick={()=>{openChatbots('cholecystectomy')}}
+                className={`block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:p-0 uppercase ${
+                  pathname === '/cholecystectomy/'
                     ? 'text-white  md:text-blue-700'
                     : 'text-gray-900 hover:bg-gray-100 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
                 }`}
               >
-                Cholec
+                cholecystectomy
               </button>
             </li>
             {session?.user ? (

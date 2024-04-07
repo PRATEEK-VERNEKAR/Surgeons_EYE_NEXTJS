@@ -14,7 +14,7 @@ export default async function CataractRedirect() {
   if (session && session.user && session.user.email) {
     const email = session.user.email;
     console.log(email);
-    redirect(`/cataract/${email}/${dateTimeId}`);
+    redirect(`/ophthalmology/${email}/${dateTimeId}`);
   } else {
     redirect("/");
   }

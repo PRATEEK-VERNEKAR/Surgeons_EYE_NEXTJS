@@ -1,6 +1,6 @@
 export {default} from "next-auth/middleware";
 
-export const config={matcher:['/cataract','/cholec']}   
+export const config={matcher:['/ophthalmology','/cholecystectomy']}   
 
 
 // import { NextResponse } from 'next/server'

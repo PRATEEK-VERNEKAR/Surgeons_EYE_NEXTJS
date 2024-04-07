@@ -4,12 +4,12 @@ import { useSession } from 'next-auth/react';
 import React, { useState, useEffect,useRef } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
-import '@/app/cataract/index.css';
-import { appendChatMessage } from '@/app/cataract/functions/appendChatMessage';
-import { simulateResponse } from '@/app/cataract/functions/simulateResponse';
-import { processVideo } from '@/app/cataract/functions/processVideo';
-import { predictVideoText } from '@/app/cataract/functions/predictVideoText';
-import Sidebar from '@/app/cataract/components/Sidebar';
+import '@/app/ophthalmology/index.css';
+import { appendChatMessage } from '@/app/ophthalmology/functions/appendChatMessage';
+import { simulateResponse } from '@/app/ophthalmology/functions/simulateResponse';
+import { processVideo } from '@/app/ophthalmology/functions/processVideo';
+import { predictVideoText } from '@/app/ophthalmology/functions/predictVideoText';
+import Sidebar from '@/app/ophthalmology/components/Sidebar';
 import { redirect,useRouter } from 'next/navigation';
 
 
@@ -33,6 +33,8 @@ interface PageProps{
     dateTimeId:string
 }
 
+
+
 const ChatBody: React.FC<PageProps> = (props:PageProps) => {
   const router=useRouter();
   const { data: session } = useSession({
@@ -50,6 +52,7 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [transcript, setTranscript] = useState<string>("");
   const [dateTimeId, setDateTimeId] = useState<string>(props.dateTimeId as string);
+  const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
@@ -68,15 +71,16 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
     if (videoFile) {
       const videoData = await processVideo(videoFile);
       const resTranscript = await predictVideoText(videoFile);
-      await appendChatMessage(session?.user?.email ?? "", "user", "Video Input", dateTimeId, "",'cataract');
+      console.log(resTranscript);
       setTranscript(resTranscript);
+      await appendChatMessage(session?.user?.email ?? "", "user", "Video Input", dateTimeId, "",'cataract');
       newMessages.push({ type: 'user', message: 'Sent a video', videoSource: videoData }, { type: 'system', message: resTranscript });
-      await appendChatMessage(session?.user?.email ?? "", "system", resTranscript, dateTimeId, transcript,'cataract');
+      await appendChatMessage(session?.user?.email ?? "", "system", resTranscript, dateTimeId, resTranscript,'cataract');
     } else if (userInput) {
       await appendChatMessage(session?.user?.email ?? "", "user", userInput, dateTimeId, "",'cataract');
       const response = await simulateResponse(userInput, transcript);
       newMessages.push({ type: 'user', message: userInput }, { type: 'system', message: response });
-      await appendChatMessage(session?.user?.email ?? "", "system", response, dateTimeId, transcript,'cataract');
+      await appendChatMessage(session?.user?.email ?? "", "system", response, dateTimeId, " ",'cataract');
     }
 
     setChatHistory((prevChatHistory) => [...prevChatHistory, ...newMessages]);
@@ -91,20 +95,49 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
     }
   };
 
+  // let isSpeaking = false; // Flag to track ongoing speech
+
   function handleSpeakClick(textToSpeak: string) {
     if (typeof window !== 'undefined' && window.speechSynthesis) {
+
+      // if(isSpeaking){
+      //   speechSynthesis.cancel();
+      // }
+
       const utterance = new SpeechSynthesisUtterance(textToSpeak);
+      
+      
+      console.log("Speaking");
+      console.log(textToSpeak)
+      setIsSpeaking(true); // Set speaking flag
+      speechSynthesis.speak(utterance);
+      utterance.onend=()=>{
+        setIsSpeaking(false);
+      }
+
+  
       // Customize voice, rate, pitch, etc. if desired
       // utterance.voice = window.speechSynthesis.getVoices()[4]; // Example voice selection
       // utterance.rate = 0.85;
-      speechSynthesis.speak(utterance);
+  
     } else {
       console.error('Text-to-speech not supported in this browser.');
     }
   }
+
+  function splitAndSpeak(textToSpeak: string, chunkSize: number = 150) {
+    const chunks = textToSpeak.match(/(.{1,150})/g); // Split into 150-character chunks (adjust chunkSize as needed)
+    if (chunks) {
+      for (const chunk of chunks) {
+        handleSpeakClick(chunk);
+      }
+    } else {
+      console.error('Error splitting text into chunks.');
+    }
+  }
   
-
-
+  
+  
   useEffect(() => {
     const fetchChatHistory = async () => {
       try {
@@ -119,7 +152,8 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
           );
           (conversationsHistory)
           setChatHistory(conversationsHistory);
-          setTranscript(data.transcript);
+          console.log(data);
+          setTranscript(data.currentChats.transcript);
         } else {
           console.error('Error fetching chat history:', data.error);
         }
@@ -139,6 +173,7 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
     }
   }, [chatHistory]);
 
+
   const handleChatSelect = (dateTimeId: string, selectedChat: Chat) => {
     const conversationsHistory: Message[] = selectedChat.conversations.map(
       (conversation) => ({
@@ -151,12 +186,12 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
 
   return (
     <div className='flex w-full '>
-      <div className="flex flex-col h-[800px] w-[50%] m-auto rounded-xl bg-gray-200">
-      <h1 className='text-center text-4xl p-2 w-full bg-red-200'>CATARACT</h1>
+      <div className="flex flex-col h-[800px] w-[100%] mx-2 rounded-xl bg-gray-200">
+      <h1 className='text-center text-4xl p-2 rounded-xl w-full bg-red-200'>CATARACT</h1>
         <div className="flex-grow overflow-y-scroll px-4 py-2" ref={chatContainerRef}>
         {/* <div className="flex-grow overflow-y-scroll px-4 py-2"> */}
           {chatHistory.map((message, index) => {
-            console.log(message.message);
+            // console.log(message.message);
             return (
               <div
               key={index}
@@ -188,12 +223,19 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
                       return (
                         <>
                           <li key={lineIndex}>{line}</li>
-                          <br />
+                          {/* <br /> */}
                         </>
                       );
                     })}
-                    <button onClick={()=>{handleSpeakClick(String(message.message))}}>
-                      <Image src='/public/file-audio-solid.svg' width={20} height={20} alt='Speak Icon'/>
+                    <button onClick={()=>{splitAndSpeak(String(message.message))}}>
+                      {
+                        isSpeaking?(
+                          <Image src='/volume-off-solid.svg' width={10} height={10} alt='Speak Icon'/>
+                        ):
+                        (    
+                          <Image src='/volume-high-solid.svg'  width={20} height={20} alt='Speak Icon'/>
+                        )
+                      }
                     </button>
                   </div>
                 )                

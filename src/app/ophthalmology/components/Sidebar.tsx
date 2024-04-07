@@ -42,7 +42,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
   }, [userEmail]);
 
   return (
-    <div className="bg-gray-100 p-6 rounded-xl shadow-lg w-80">
+    <div className="bg-gray-100 p-6 rounded-xl shadow-lg w-80 h-[800px] overflow-y-auto">
       <h2 className="text-xl font-bold mb-6 text-indigo-800">Chat Sessions</h2>
       <ul>
         {allIds.map((dateTimeId) => (
@@ -50,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
             key={dateTimeId.toString()}
             className="bg-white p-4 rounded-lg mb-4 cursor-pointer hover:bg-indigo-200 transition-colors duration-300 border-2 border-indigo-200"
             onClick={() => {
-              router.push(`/cataract/${userEmail}/${dateTimeId}`);
+              router.push(`/ophthalmology/${userEmail}/${dateTimeId}`);
             }}
           >
             <span className="font-semibold text-gray-800">{dateTimeId}</span>

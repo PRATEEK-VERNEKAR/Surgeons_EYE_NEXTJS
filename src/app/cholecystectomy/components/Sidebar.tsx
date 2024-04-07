@@ -26,7 +26,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
   useEffect(() => {
     const fetchChats = async () => {
       try {
-        const response = await fetch(`/api/getAllIds/${userEmail}/cholec`);
+        const response = await fetch(`/api/getAllIds/${userEmail}/cholecystectomy`);
 
         const data = await response.json();
         console.log(data)
@@ -72,7 +72,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
           key={dateTimeId.toString()}
           className="bg-white p-4 rounded-lg mb-4 cursor-pointer hover:bg-indigo-200 transition-colors duration-300 border-2 border-indigo-200"
           onClick={() => {
-            router.push(`/cataract/${userEmail}/${dateTimeId}`);
+            router.push(`/ophthalmology/${userEmail}/${dateTimeId}`);
           }}
         >
           <span className="font-semibold text-gray-800">{dateTimeId}</span>

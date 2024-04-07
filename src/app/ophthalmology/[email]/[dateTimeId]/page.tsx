@@ -1,6 +1,6 @@
-import '@/app/cataract/index.css';
-import Sidebar from '@/app/cataract/components/Sidebar';
-import ChatBody from '@/app/cataract/components/ChatBody';
+import '@/app/ophthalmology/index.css';
+import Sidebar from '@/app/ophthalmology/components/Sidebar';
+import ChatBody from '@/app/ophthalmology/components/ChatBody';
 import { redirect } from 'next/navigation';
 import { getServerSession } from "next-auth/next"
 import {options} from "@/app/api/auth/[...nextauth]/route"
@@ -20,7 +20,7 @@ const Chatbot: React.FC<PageProps> = async ({params}) => {
   console.log(session)
   console.log("\n\n\n\n")
   if(!session){
-    redirect(`/auth/login?callbackUrl=/cataract`)
+    redirect(`/auth/login?callbackUrl=/ophthalmology`)
   }
 
   return (

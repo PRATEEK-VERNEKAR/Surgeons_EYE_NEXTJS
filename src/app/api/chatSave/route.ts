@@ -20,13 +20,24 @@ export async function POST(request: Request) {
       (chat) => chat.dateTimeId === dateTimeId
     );
 
+    console.log(transcript)
+
     if (currentChatObj) {
-      currentChatObj.conversations.push({ type: msgType, message });
+      
+      if (transcript) {
+        currentChatObj.transcript = transcript;
+        currentChatObj.conversations.push({ type: msgType, message:"!!transcript!!" });
+      }
+      else{
+        currentChatObj.conversations.push({ type: msgType, message });
+      }
+
     } else {
       user.chats.push({
         dateTimeId:dateTimeId,
         transcript:transcript,
         category:category,
+        chatName:"",
         conversations: [{ type: msgType, message }],
       });
     }

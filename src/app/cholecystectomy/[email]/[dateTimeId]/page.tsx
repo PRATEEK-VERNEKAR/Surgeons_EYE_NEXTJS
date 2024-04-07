@@ -2,12 +2,12 @@
 import { useSession } from 'next-auth/react';
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import '@/app/cholec/index.css';
-import { appendChatMessage } from '@/app/cholec/functions/appendChatMessage';
-import { simulateResponse } from '@/app/cholec/functions/simulateResponse';
-import { processVideo } from '@/app/cholec/functions/processVideo';
-import { predictVideoText } from '@/app/cholec/functions/predictVideoText';
-import Sidebar from '@/app/cholec/components/Sidebar';
+import '@/app/cholecystectomy/index.css';
+import { appendChatMessage } from '@/app/cholecystectomy/functions/appendChatMessage';
+import { simulateResponse } from '@/app/cholecystectomy/functions/simulateResponse';
+import { processVideo } from '@/app/cholecystectomy/functions/processVideo';
+import { predictVideoText } from '@/app/cholecystectomy/functions/predictVideoText';
+import Sidebar from '@/app/cholecystectomy/components/Sidebar';
 import { useSelectedLayoutSegments } from 'next/navigation';
 
 

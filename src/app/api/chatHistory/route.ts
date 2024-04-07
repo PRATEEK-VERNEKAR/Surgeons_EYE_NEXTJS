@@ -20,11 +20,17 @@ export async function GET(request: NextRequest) {
         const user:IUser|null = await UserModel.findOne({ email },{chats:{$elemMatch:{dateTimeId}}});
         // const user = await UserModel.findOne({ email });
         
+
+        console.log("adfkljaklfdjasdfj\n\n\n")
+        // console.log(user);
+
+
         if (!user) {
             return NextResponse.json({ chats: [] }, { status: 404 });
         }
 
         const chat = user.chats.find((c) => c.dateTimeId === dateTimeId);
+        console.log(chat)
         
         return NextResponse.json({"currentChats":chat});
     }

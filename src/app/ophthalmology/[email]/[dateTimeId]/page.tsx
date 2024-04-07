@@ -24,7 +24,10 @@ const Chatbot: React.FC<PageProps> = async ({params}) => {
   }
 
   return (
-    <div className='flex'>
+    // <div className='flex' style={{backgroundImage: `url('public/eye_background.png')`} }>
+    <div
+      className="flex"
+    >
       <Sidebar userEmail={params.email ?? ""} />
       <ChatBody email={params.email} dateTimeId={params.dateTimeId}/>
     </div>

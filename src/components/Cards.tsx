@@ -34,14 +34,31 @@ const Cards:React.FC<CardProps> = ({url}) => {
   }
 
   return (
-    <div onClick={() => {openChatbot()}} className="bg-slate-300 max-w-sm bg-white border border-gray-200 rounded-lg shadow m-4 cursor-pointer h-[400px] w-[600px]">
-        <Image className="rounded-t-lg object-cover w-[600px] h-[300px]" src={"/"+url+".jpg"}  height={200} width={200} alt="" />
-        <p className='p-2 text-2xl text-center font-bold uppercase'>{url}</p>
-        <div className='text-center'>
-            <button type="button" className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Explore Assistant</button>
-        </div>
+    <div
+      onClick={() => openChatbot()}
+      className="group w-full  border border-4 border-limme-500 rounded-lg shadow-lg bg-gradient-to-r from-pink-500 via-orange-500 to-red-100 rounded-lg shadow-lg overflow-hidden m-4 cursor-pointer w-[500px]"
+    >
+      <Image
+        className="rounded-t-lg object-cover w-full h-[300px] group-hover:scale-105 transition duration-300 ease-in-out"
+        src={"/" + url + ".jpg"}
+        height={200} width={200}
+        alt=""
+      />
+      <div className="text-center py-6 w-full flex flex-col justify-between">
+        <p
+          className="text-2xl text-black font-bold pb-2 uppercase group-hover:text-indigo-900 transition duration-300 ease-in-out"
+        >
+          {url}
+        </p>
+        {/* <button
+          type="button"
+          className="py-3 text-white w-full bg-gradient-to-r from-orange-500 to-yellow-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm  text-center transition duration-300 ease-in-out"
+        >
+          Explore Assistant
+        </button> */}
+      </div>
     </div>
-    )
+  )
 }
 
 export default Cards;

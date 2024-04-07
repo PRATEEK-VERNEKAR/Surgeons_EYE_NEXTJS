@@ -188,7 +188,20 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
     <div className='flex w-full '>
       <div className="flex flex-col h-[800px] w-[100%] mx-2 rounded-xl bg-gray-200">
       <h1 className='text-center text-4xl p-2 rounded-xl w-full bg-red-200'>CATARACT</h1>
-        <div className="flex-grow overflow-y-scroll px-4 py-2" ref={chatContainerRef}>
+        <div 
+        className="flex-grow overflow-y-scroll px-4 py-2"
+        ref={chatContainerRef}
+        style={{
+          backgroundImage: `url('/Screenshot from 2024-04-07 18-16-09.png')`,
+          backgroundSize: "cover", /* Resize image to cover the container */
+          backgroundRepeat: "no-repeat", /* Don't repeat the image */
+          backgroundPosition: "center",
+          // opacity:0.2
+          // filter: "blur(2px)", /* Apply a slight blur effect (optional) */
+          /* Add more styles as needed */
+        }}
+        >
+          
         {/* <div className="flex-grow overflow-y-scroll px-4 py-2"> */}
           {chatHistory.map((message, index) => {
             // console.log(message.message);

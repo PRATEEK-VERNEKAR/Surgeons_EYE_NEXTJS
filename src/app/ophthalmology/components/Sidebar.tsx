@@ -2,8 +2,9 @@
 
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useRef} from 'react';
 import { useSelectedLayoutSegments, useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 interface Chat {
   dateTimeId: string;
@@ -21,6 +22,12 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
   const [allIds, setAllIds] = useState<String[]>([]);
   const router = useRouter();
+
+  const buttonRef = useRef(null); // Create a reference to the button element
+  const [isHovered, setIsHovered] = useState(false); // State to track hover
+
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
 
   useEffect(() => {
     const fetchChats = async () => {
@@ -42,8 +49,25 @@ const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
   }, [userEmail]);
 
   return (
-    <div className="bg-gray-100 p-6 rounded-xl shadow-lg w-80 h-[800px] overflow-y-auto">
-      <h2 className="text-xl font-bold mb-6 text-indigo-800">Chat Sessions</h2>
+    <div className="bg-slate-600 p-6 rounded-xl shadow-lg w-80 h-[800px] overflow-y-auto">
+
+      <h2 className="text-xl font-bold mb-6 text-yellow-300 uppercase text-center">Chat Sessions</h2>
+      <button
+        ref={buttonRef} // Assign the reference to the button
+        onClick={() => router.push("/ophthalmology")}
+        className='w-full text-center flex justify-center align-center mb-3'
+        onMouseEnter={handleMouseEnter} // Add mouseEnter event handler
+        onMouseLeave={handleMouseLeave} // Add mouseLeave event handler
+      >
+      <Image src='/plus-solid.svg' width={40} height={40} alt='plus' className=' border border-4 rounded-full' />
+      {isHovered && ( // Conditionally render the hover box
+        <div
+          className="hover-box absolute top-full left-full mt-2 ml-2 px-3 py-2 rounded-md bg-gray-200 shadow-md border border-gray-400 text-sm" // Customizable hover box styles
+        >
+          New Session
+        </div>
+      )}
+    </button>
       <ul>
         {allIds.map((dateTimeId) => (
           <li

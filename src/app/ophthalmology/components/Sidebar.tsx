@@ -49,7 +49,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
   }, [userEmail]);
 
   return (
-    <div className="bg-slate-600 p-6 rounded-xl shadow-lg w-80 h-[800px] overflow-y-auto">
+    <div className="bg-slate-600 p-6 rounded-xl shadow-lg w-80 h-[800px] overflow-y-auto bg-opacity-80">
 
       <h2 className="text-xl font-bold mb-6 text-yellow-300 uppercase text-center">Chat Sessions</h2>
       <button

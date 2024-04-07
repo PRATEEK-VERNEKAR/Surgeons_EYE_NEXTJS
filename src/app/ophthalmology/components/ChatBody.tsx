@@ -187,19 +187,21 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
   return (
     <div className='flex w-full '>
       <div className="flex flex-col h-[800px] w-[100%] mx-2 rounded-xl bg-gray-200">
-      <h1 className='text-center text-4xl p-2 rounded-xl w-full bg-red-200'>CATARACT</h1>
+        <div className='flex w-full bg-red-200 font-bold justify-center'>
+          <h1 className='text-center text-4xl p-2 rounded-xl mr-[12px]'>OPTHALMOLOGY</h1>
+          <button className='mx-4 w-[50px]'>
+            <Image src='/file-arrow-down-solid.svg' width={20} height={20} alt='filedownload'></Image>
+          </button>
+        </div>
         <div 
-        className="flex-grow overflow-y-scroll px-4 py-2"
+        className="flex-grow overflow-y-scroll px-4 py-2  bg-opacity-5"
         ref={chatContainerRef}
-        style={{
-          backgroundImage: `url('/Screenshot from 2024-04-07 18-16-09.png')`,
-          backgroundSize: "cover", /* Resize image to cover the container */
-          backgroundRepeat: "no-repeat", /* Don't repeat the image */
-          backgroundPosition: "center",
-          // opacity:0.2
-          // filter: "blur(2px)", /* Apply a slight blur effect (optional) */
-          /* Add more styles as needed */
-        }}
+        // style={{
+        //   backgroundImage: `url('/Screenshot from 2024-04-07 18-16-09.png')`,
+        //   backgroundSize: "cover", /* Resize image to cover the container */
+        //   backgroundRepeat: "no-repeat", /* Don't repeat the image */
+        //   backgroundPosition: "center",
+        // }}
         >
           
         {/* <div className="flex-grow overflow-y-scroll px-4 py-2"> */}
@@ -213,8 +215,8 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
               }`}
               >
                 {message.videoSource && (
-                  <>
-                    <video src={message.videoSource} controls />
+                  <div className='flex justify-center align-center'>
+                    <video className='w-[50%] ' src={message.videoSource} controls />
                     {/* {message.message && (
                       <>
                         {String(message.message).split('\n').map((line, lineIndex) => {
@@ -228,7 +230,7 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
                         })}
                       </>
                     )} */}
-                  </>
+                  </div>
                 )}
                 {message.message && (
                   <div className=''>
@@ -259,7 +261,7 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
           {isLoading && <div className="text-center mt-4">Loading...</div>}
         </div>
 
-        <div className="flex items-center px-4 py-2 border-t border-gray-300 bg-white rounded-b-xl shadow-md">
+        <div className="flex items-center px-4 py-2 border-t border-gray-00 bg-white rounded-b-xl shadow-md">
           {videoFile && (
             <div className="flex items-center mb-2">
               <svg
@@ -278,14 +280,14 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
               </span>
             </div>
           )}
-          <div className="flex items-center w-full border border-gray-300 rounded-lg overflow-hidden">
+          <div className="flex bg-green-200 items-center w-full border border-pink-300 rounded-lg overflow-hidden">
             <div className={`relative flex-grow mr-2 ${videoFile ? 'ring-2 ring-green-500' : ''}`}>
               <input
                 type="text"
                 value={userInput}
                 onChange={handleUserInput}
                 placeholder="Type your message..."
-                className={`w-full p-2 rounded-lg ${videoFile ? 'border-green-500' : 'border-transparent'} focus:outline-none focus:ring-2 focus:ring-blue-500 ${videoFile ? 'bg-green-100' : ''}`}
+                className={`w-full p-2 rounded-lg ${videoFile ? 'border-green-500' : 'border-transparent'} focus:outline-none focus:ring-2 focus:ring-blue-500 ${videoFile ? 'bg-green-100' : 'bg-yellow-200'}`}
                 disabled={videoFile ? false : false}
                 />
               <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">

@@ -25,8 +25,8 @@ export async function POST(request: Request) {
     if (currentChatObj) {
       
       if (transcript) {
-        currentChatObj.transcript = transcript;
-        currentChatObj.conversations.push({ type: msgType, message:"!!transcript!!" });
+        currentChatObj.transcript = transcript; 
+        currentChatObj.conversations.push({ type: msgType, message:transcript });
       }
       else{
         currentChatObj.conversations.push({ type: msgType, message });

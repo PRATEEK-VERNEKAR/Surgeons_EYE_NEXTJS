@@ -1,5 +1,7 @@
 export async function appendChatMessage(email: string, msgType: string, message: string, dateTimeId:string,transcript: string,category:string): Promise<boolean> {
     try {
+      console.log("HELLO\n\n")
+      console.log(transcript);
       const response = await fetch('/api/chatSave', {
         method: 'POST',
         headers: {

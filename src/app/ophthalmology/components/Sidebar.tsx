@@ -69,7 +69,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
       )}
     </button>
       <ul>
-        {allIds.map((dateTimeId) => (
+        {allIds.map((dateTimeId,index) => (
           <li
             key={dateTimeId.toString()}
             className="bg-white p-4 rounded-lg mb-4 cursor-pointer hover:bg-indigo-200 transition-colors duration-300 border-2 border-indigo-200"
@@ -77,7 +77,10 @@ const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
               router.push(`/ophthalmology/${userEmail}/${dateTimeId}`);
             }}
           >
-            <span className="font-semibold text-gray-800">{dateTimeId}</span>
+            <span className="font-semibold text-gray-800">{index+1}</span>
+            <br></br>
+            <span className="text-sm text-gray-800">{dateTimeId}</span>
+            
           </li>
         ))}
       </ul>

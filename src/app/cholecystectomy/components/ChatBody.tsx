@@ -4,12 +4,12 @@ import { useSession } from 'next-auth/react';
 import React, { useState, useEffect,useRef } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
-import '@/app/ophthalmology/index.css';
-import { appendChatMessage } from '@/app/ophthalmology/functions/appendChatMessage';
-import { simulateResponse } from '@/app/ophthalmology/functions/simulateResponse';
-import { processVideo } from '@/app/ophthalmology/functions/processVideo';
-import { predictVideoText } from '@/app/ophthalmology/functions/predictVideoText';
-import Sidebar from '@/app/ophthalmology/components/Sidebar';
+import '@/app/cholecystectomy/index.css';
+import { appendChatMessage } from '@/app/cholecystectomy/functions/appendChatMessage';
+import { simulateResponse } from '@/app/cholecystectomy/functions/simulateResponse';
+import { processVideo } from '@/app/cholecystectomy/functions/processVideo';
+import { predictVideoText } from '@/app/cholecystectomy/functions/predictVideoText';
+import Sidebar from '@/app/cholecystectomy/components/Sidebar';
 import { redirect,useRouter } from 'next/navigation';
 
 
@@ -73,14 +73,14 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
       const resTranscript = await predictVideoText(videoFile);
       console.log(resTranscript);
       setTranscript(resTranscript);
-      await appendChatMessage(session?.user?.email ?? "", "user", "Video Input", dateTimeId, "",'cataract');
+      await appendChatMessage(session?.user?.email ?? "", "user", "Video Input", dateTimeId, "",'cholec');
       newMessages.push({ type: 'user', message: 'Sent a video', videoSource: videoData }, { type: 'system', message: resTranscript });
-      await appendChatMessage(session?.user?.email ?? "", "system", resTranscript, dateTimeId, resTranscript,'cataract');
+      await appendChatMessage(session?.user?.email ?? "", "system", resTranscript, dateTimeId, resTranscript,'cholec');
     } else if (userInput) {
-      await appendChatMessage(session?.user?.email ?? "", "user", userInput, dateTimeId, "",'cataract');
+      await appendChatMessage(session?.user?.email ?? "", "user", userInput, dateTimeId, "",'cholec');
       const response = await simulateResponse(userInput, transcript);
       newMessages.push({ type: 'user', message: userInput }, { type: 'system', message: response });
-      await appendChatMessage(session?.user?.email ?? "", "system", response, dateTimeId, " ",'cataract');
+      await appendChatMessage(session?.user?.email ?? "", "system", response, dateTimeId, " ",'cholec');
     }
 
     setChatHistory((prevChatHistory) => [...prevChatHistory, ...newMessages]);
@@ -188,16 +188,17 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
     <div className='flex w-full '>
       <div className="flex flex-col h-[800px] w-[100%] mx-2 rounded-xl bg-gray-200">
         <div className='flex w-full bg-red-200 font-bold justify-center'>
-          <h1 className='text-center text-4xl p-2 rounded-xl mr-[12px]'>OPTHALMOLOGY</h1>
-          {
-            /*
-            
-            <button className='mx-4 w-[50px]'>
-              <Image src='/file-arrow-down-solid.svg' width={20} height={20} alt='filedownload'></Image>
-            </button>
-            
-            */
-          }
+          <h1 className='text-center text-4xl p-2 rounded-xl mr-[12px]'>CHOLECYSTECTOMY</h1>
+
+       {
+        /*
+        <button className='mx-4 w-[50px]'>
+            <Image src='/file-arrow-down-solid.svg' width={20} height={20} alt='filedownload'></Image>
+          </button>
+
+
+        */
+       }   
         </div>
         <div 
         className="flex-grow overflow-y-scroll px-4 py-2  bg-opacity-5"

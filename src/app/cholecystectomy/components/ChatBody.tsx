@@ -222,7 +222,11 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
               >
                 {message.videoSource && (
                   <div className='flex justify-center align-center'>
-                    <video className='w-[50%] ' src={message.videoSource} controls />
+                    {/* <video className='w-[50%] ' src={message.videoSource} controls /> */}
+                    <video className='w-[50%] ' controls >
+                    <source src={message.videoSource} type="video/mp4" />
+                    </video>
+
                     {/* {message.message && (
                       <>
                         {String(message.message).split('\n').map((line, lineIndex) => {
@@ -346,10 +350,10 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
               <input
                 type="file"
                 id="video-upload"
-                accept="video/mp4,video/x-m4v,video/*"
+                accept="video/*"
                 onChange={handleVideoChange}
                 className="hidden"
-                />
+              />
               <button
                 onClick={handleSendMessage}
                 disabled={isLoading}

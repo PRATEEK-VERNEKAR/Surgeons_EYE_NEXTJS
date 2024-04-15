@@ -11,8 +11,7 @@ export async function predictVideoText(file: File): Promise<string> {
         body: formData,
       });
       const videoOutputdata = await response.json();
-      return videoOutputdata.message;
-      return videoOutputdata.message+"\n****************\n"+"Phase1 \n Grasper moving from Bottom-Right to Bottom-Right L-hook Electrocautery moving from Bottom-Right to Bottom-Right\n\n Phase2\n Grasper moving from Bottom-Right to Bottom-Right  L-hook Electrocautery moving from Bottom-Right to Bottom-Right \n\nPhase3\n Grasper moving from Bottom-Right to Bottom-Right L-hook Electrocautery moving from Bottom-Right to Bottom-Right\n\n  Phase4\n  L-hook Electrocautery moving from Bottom-Right to Bottom-Right Grasper moving from Bottom-Right to Bottom-Right \n\n Phase5\n\ Grasper moving from Bottom-Right to Bottom-Right -hook Electrocautery moving from Bottom-Right to Bottom-Right \n\nPhase6\n Grasper moving from Bottom-Right to Bottom-Right";
+      return videoOutputdata.message+"\n****************\n"+videoOutputdata.message2;
     } catch (error) {
       console.error('Error sending video to API:', error);
       return 'Error processing video';

@@ -80,7 +80,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userEmail }) => {
             <span className="font-semibold text-gray-800">{index+1}</span>
             <br></br>
             <span className="text-sm text-gray-800">{dateTimeId}</span>
-
+            
           </li>
         ))}
       </ul>

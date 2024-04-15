@@ -80,7 +80,7 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
       await appendChatMessage(session?.user?.email ?? "", "user", userInput, dateTimeId, "",'cataract');
       const response = await simulateResponse(userInput, transcript);
       newMessages.push({ type: 'user', message: userInput }, { type: 'system', message: response });
-      await appendChatMessage(session?.user?.email ?? "", "system", response, dateTimeId, " ",'cataract');
+      await appendChatMessage(session?.user?.email ?? "", "system", response, dateTimeId, "",'cataract');
     }
 
     setChatHistory((prevChatHistory) => [...prevChatHistory, ...newMessages]);

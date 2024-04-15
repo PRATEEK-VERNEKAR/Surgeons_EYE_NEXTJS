@@ -4,7 +4,7 @@ import { options } from "@/app/api/auth/[...nextauth]/route";
 import { generateDateTimeId } from "@/utils/generateDateTimeId";
 
 
-export default async function CataractRedirect() {
+export default async function CholecRedirect() {
   const session = await getServerSession(options);
 
   console.log(session);

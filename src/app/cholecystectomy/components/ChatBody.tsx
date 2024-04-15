@@ -80,7 +80,7 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
       await appendChatMessage(session?.user?.email ?? "", "user", userInput, dateTimeId, "",'cholec');
       const response = await simulateResponse(userInput, transcript);
       newMessages.push({ type: 'user', message: userInput }, { type: 'system', message: response });
-      await appendChatMessage(session?.user?.email ?? "", "system", response, dateTimeId, " ",'cholec');
+      await appendChatMessage(session?.user?.email ?? "", "system", response, dateTimeId, "",'cholec');
     }
 
     setChatHistory((prevChatHistory) => [...prevChatHistory, ...newMessages]);
@@ -188,17 +188,16 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
     <div className='flex w-full '>
       <div className="flex flex-col h-[800px] w-[100%] mx-2 rounded-xl bg-gray-200">
         <div className='flex w-full bg-red-200 font-bold justify-center'>
-          <h1 className='text-center text-4xl p-2 rounded-xl mr-[12px]'>CHOLECYSTECTOMY</h1>
-
-       {
-        /*
-        <button className='mx-4 w-[50px]'>
-            <Image src='/file-arrow-down-solid.svg' width={20} height={20} alt='filedownload'></Image>
-          </button>
-
-
-        */
-       }   
+          <h1 className='text-center text-4xl p-2 rounded-xl mr-[12px] uppercase'>cholecystectomy</h1>
+          {
+            /*
+            
+            <button className='mx-4 w-[50px]'>
+              <Image src='/file-arrow-down-solid.svg' width={20} height={20} alt='filedownload'></Image>
+            </button>
+            
+            */
+          }
         </div>
         <div 
         className="flex-grow overflow-y-scroll px-4 py-2  bg-opacity-5"

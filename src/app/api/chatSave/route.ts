@@ -15,30 +15,31 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: 'User not found' }, { status: 404 });
     }
 
+    console.log(email,msgType,message,dateTimeId,transcript,category);
 
+    // console.log("USERS",user.chats);
     const currentChatObj = user.chats.find(
       (chat) => chat.dateTimeId === dateTimeId
     );
 
-    console.log(transcript)
+    // console.log("HELLO" , currentChatObj)
 
-    if (currentChatObj) {
-      
+    if (currentChatObj) {      
       if (transcript) {
         currentChatObj.transcript = transcript; 
         currentChatObj.conversations.push({ type: msgType, message:transcript });
       }
       else{
-        currentChatObj.conversations.push({ type: msgType, message });
+        currentChatObj.conversations.push({ type: msgType, message:message });
       }
-
     } else {
+      console.log(message);
       user.chats.push({
         dateTimeId:dateTimeId,
         transcript:transcript,
         category:category,
-        chatName:"",
-        conversations: [{ type: msgType, message }],
+        // chatName:"",
+        conversations: [{ type: msgType, message:"message" }],
       });
     }
 

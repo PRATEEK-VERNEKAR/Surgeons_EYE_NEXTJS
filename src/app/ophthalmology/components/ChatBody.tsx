@@ -184,20 +184,25 @@ const ChatBody: React.FC<PageProps> = (props:PageProps) => {
     setChatHistory(conversationsHistory);
   };
 
+  const handleDownload = () => {
+    const randomInteger = Math.floor(Math.random() * 2) + 1;
+    const link = document.createElement('a');
+    link.href = `/${randomInteger}.pdf`; 
+    link.download = 'Catcract1.pdf';
+    link.click();
+    
+  };
+
   return (
     <div className='flex w-full '>
       <div className="flex flex-col h-[800px] w-[100%] mx-2 rounded-xl bg-gray-200">
         <div className='flex w-full bg-red-200 font-bold justify-center'>
           <h1 className='text-center text-4xl p-2 rounded-xl mr-[12px]'>OPTHALMOLOGY</h1>
-          {
-            /*
-            
-            <button className='mx-4 w-[50px]'>
+
+            <button className='mx-4 w-[50px]' onClick={handleDownload}>
               <Image src='/file-arrow-down-solid.svg' width={20} height={20} alt='filedownload'></Image>
             </button>
             
-            */
-          }
         </div>
         <div 
         className="flex-grow overflow-y-scroll px-4 py-2  bg-opacity-5"

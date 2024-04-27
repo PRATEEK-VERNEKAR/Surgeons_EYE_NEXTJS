@@ -4,12 +4,12 @@ import { useSession } from 'next-auth/react';
 import React, { useState, useEffect,useRef } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
-import '@/app/ophthalmology/index.css';
-import { appendChatMessage } from '@/app/ophthalmology/functions/appendChatMessage';
-import { simulateResponse } from '@/app/ophthalmology/functions/simulateResponse';
-import { processVideo } from '@/app/ophthalmology/functions/processVideo';
-import { predictVideoText } from '@/app/ophthalmology/functions/predictVideoText';
-import Sidebar from '@/app/ophthalmology/components/Sidebar';
+import '@/app/prerecorded/ophthalmology/index.css';
+import { appendChatMessage } from '@/app/prerecorded/ophthalmology/functions/appendChatMessage';
+import { simulateResponse } from '@/app/prerecorded/ophthalmology/functions/simulateResponse';
+import { processVideo } from '@/app/prerecorded/ophthalmology/functions/processVideo';
+import { predictVideoText } from '@/app/prerecorded/ophthalmology/functions/predictVideoText';
+import Sidebar from '@/app/prerecorded/ophthalmology/components/Sidebar';
 import { redirect,useRouter } from 'next/navigation';
 
 

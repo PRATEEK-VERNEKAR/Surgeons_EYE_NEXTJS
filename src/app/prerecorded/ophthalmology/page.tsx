@@ -4,7 +4,7 @@ import { options } from "@/app/api/auth/[...nextauth]/route";
 import { generateDateTimeId } from "@/utils/generateDateTimeId";
 
 
-export default async function CholecRedirect() {
+export default async function CataractRedirect() {
   const session = await getServerSession(options);
 
   console.log(session);
@@ -14,8 +14,9 @@ export default async function CholecRedirect() {
   if (session && session.user && session.user.email) {
     const email = session.user.email;
     console.log(email);
-    redirect(`/cholecystectomy/${email}/${dateTimeId}`);
-  } else {
-    redirect("/");
+    redirect(`/prerecorded/ophthalmology/${email}/${dateTimeId}`);
+  }
+  else {
+    redirect(`/auth/login?callbackUrl=/prerecorded/ophthalmology`)
   }
 }

@@ -4,12 +4,12 @@ import { useSession } from 'next-auth/react';
 import React, { useState, useEffect,useRef } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
-import '@/app/cholecystectomy/index.css';
-import { appendChatMessage } from '@/app/cholecystectomy/functions/appendChatMessage';
-import { simulateResponse } from '@/app/cholecystectomy/functions/simulateResponse';
-import { processVideo } from '@/app/cholecystectomy/functions/processVideo';
-import { predictVideoText } from '@/app/cholecystectomy/functions/predictVideoText';
-import Sidebar from '@/app/cholecystectomy/components/Sidebar';
+import '@/app/prerecorded/cholecystectomy/index.css';
+import { appendChatMessage } from '@/app/prerecorded/cholecystectomy/functions/appendChatMessage';
+import { simulateResponse } from '@/app/prerecorded/cholecystectomy/functions/simulateResponse';
+import { processVideo } from '@/app/prerecorded/cholecystectomy/functions/processVideo';
+import { predictVideoText } from '@/app/prerecorded/cholecystectomy/functions/predictVideoText';
+import Sidebar from '@/app/prerecorded/cholecystectomy/components/Sidebar';
 import { redirect,useRouter } from 'next/navigation';
 
 

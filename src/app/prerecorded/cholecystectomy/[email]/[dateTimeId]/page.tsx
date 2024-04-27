@@ -1,6 +1,6 @@
-import '@/app/cholecystectomy/index.css';
-import Sidebar from '@/app/cholecystectomy/components/Sidebar';
-import ChatBody from '@/app/cholecystectomy/components/ChatBody';
+import '@/app/prerecorded/cholecystectomy/index.css';
+import Sidebar from '@/app/prerecorded/cholecystectomy/components/Sidebar';
+import ChatBody from '@/app/prerecorded/cholecystectomy/components/ChatBody';
 import { redirect } from 'next/navigation';
 import { getServerSession } from "next-auth/next"
 import {options} from "@/app/api/auth/[...nextauth]/route"
@@ -20,7 +20,7 @@ const Chatbot: React.FC<PageProps> = async ({params}) => {
   console.log(session)
   console.log("\n\n\n\n")
   if(!session){
-    redirect(`/auth/login?callbackUrl=/cholecystectomy`)
+    redirect(`/auth/login?callbackUrl=/prerecorded/cholecystectomy`)
   }
 
   return (

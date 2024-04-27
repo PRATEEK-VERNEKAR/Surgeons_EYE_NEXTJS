@@ -34,7 +34,7 @@ const Navbar = () => {
   const openChatbots=(surgery:string)=>{
     try{
       // if(session?.user?.email){
-        router.push(`/${surgery}/${session?.user?.email}/${generateDateTimeId()}`)
+        router.push(`/prerecorded/${surgery}/${session?.user?.email}/${generateDateTimeId()}`)
       // }
     }
     catch(e){

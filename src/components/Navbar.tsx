@@ -34,7 +34,7 @@ const Navbar = () => {
   const openChatbots=(surgery:string)=>{
     try{
       // if(session?.user?.email){
-        router.push(`/prerecorded/${surgery}/${session?.user?.email}/${generateDateTimeId()}`)
+        router.push(`/video_text_qa/${surgery}/${session?.user?.email}/${generateDateTimeId()}`)
       // }
     }
     catch(e){
@@ -134,6 +134,30 @@ const Navbar = () => {
                 }`}
               >
                 cholecystectomy
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={()=>{openChatbots('hysterectomy')}}
+                className={`block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:p-0 uppercase ${
+                  pathname === '/hysterectomy/'
+                    ? 'text-white  md:text-blue-700'
+                    : 'text-gray-900 hover:bg-gray-100 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
+                }`}
+              >
+                hysterectomy
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={()=>{openChatbots('realtime_anomaly_detection')}}
+                className={`block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:p-0 uppercase ${
+                  pathname === '/realtime_anomaly_detection/'
+                    ? 'text-white  md:text-blue-700'
+                    : 'text-gray-900 hover:bg-gray-100 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent'
+                }`}
+              >
+                Realtime Anomaly
               </button>
             </li>
             {session?.user ? (
